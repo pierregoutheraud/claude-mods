@@ -1,6 +1,6 @@
 {
   "name": "server-farm",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An idle server farm above the prompt: daemon bots collect data from your racks, and your Claude work boosts it",
   "author": { "name": "Pierre Goutheraud" },
   "types": "./types/index.d.ts"

@@ -108,6 +108,19 @@ describe('server-farm', () => {
     await ui.unmount()
   })
 
+  test('the band keeps an empty row above the farm on every surface', async ($, on) => {
+    mock.clock(on)
+    mock.store(on)
+    engine(on)
+    await $.session.start(START)
+
+    for (const surface of ['terminal', 'desktop'] as const) {
+      const ui = await $.ui.mount(band(surface))
+      expect(await ui.drawn()).toMatchObject({ type: 'Box', props: { marginTop: 1 } })
+      await ui.unmount()
+    }
+  })
+
   test('the farm runs on its own and earns data', async ($, on) => {
     const clock = mock.clock(on)
     mock.store(on)

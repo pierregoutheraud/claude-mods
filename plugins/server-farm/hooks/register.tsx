@@ -11,6 +11,8 @@ const SAVE_EVERY_MS = 5_000
 const MIRROR_EVERY_MS = 2_000
 const STALE_OWNER_MS = 20_000
 const NOTICE_MS = 5_000
+// Empty rows between the transcript and the farm.
+const BAND_SPACING = 1
 // A gap longer than this between ticks (a sleeping laptop) is paid as time away.
 const CATCH_UP_AFTER_MS = 5_000
 const TEST_COMMAND = /\b(vitest|jest|pytest|mocha|playwright test|go test|cargo test|(npm|pnpm|yarn|bun) (run )?test)\b/
@@ -266,9 +268,11 @@ export const register: Register = on => {
 
     if (columns < 40) {
       return (
-        <Text wrap="truncate">
-          {formatBytes(current.bytes)} +{formatRate(rate)}
-        </Text>
+        <Box marginTop={BAND_SPACING}>
+          <Text wrap="truncate">
+            {formatBytes(current.bytes)} +{formatRate(rate)}
+          </Text>
+        </Box>
       )
     }
 
@@ -294,7 +298,7 @@ export const register: Register = on => {
       const { Raster } = $.ui.resolve(e)
 
       return (
-        <Box flexDirection="column">
+        <Box flexDirection="column" marginTop={BAND_SPACING}>
           <Raster key="farm" columns={columns} rows={STRIP_ROWS} cells={drawStrip(current, columns, beat)} />
           {status}
         </Box>
@@ -302,7 +306,7 @@ export const register: Register = on => {
     }
 
     return (
-      <Box flexDirection="column">
+      <Box flexDirection="column" marginTop={BAND_SPACING}>
         <Text>{textStrip(current, beat)}</Text>
         {status}
       </Box>
