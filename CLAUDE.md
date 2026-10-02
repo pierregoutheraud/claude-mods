@@ -6,6 +6,7 @@ A Claude Code plugin marketplace (`.claude-plugin/marketplace.json`, named `pier
 - Keep game logic and drawing in pure modules (`game.ts`, `draw.ts`, `sprites.ts`) that never take `$`, and test them directly. `register.tsx` only wires them to events.
 - A function that receives `$` must be a top-level declaration in its file; the validator refuses closures inside `register` and names declared twice.
 - State a drawing reads goes in `$.state` (declared in `types/index.d.ts`), saves go in `$.store`; module variables reset on every hot reload.
+- Every `$.state` write a drawing reads redraws the band, and every `$` call is a trip to the engine: animate with `$.ui.blit` on a keyed `Raster`, publish state about once a second (or at once on an event), and keep per-tick `$` calls to a minimum. Frequent redraws make Claude Code lag while it streams.
 - `.claude-plugin/types/` in each plugin is written by Claude Code when it loads the plugin: never edit or commit it.
 - A new plugin goes in `plugins/` and gets an entry in `.claude-plugin/marketplace.json`.
 - Run `./scripts/check.sh` before committing.

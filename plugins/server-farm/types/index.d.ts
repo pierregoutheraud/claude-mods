@@ -42,7 +42,6 @@ declare module 'claude-code' {
       isOwner: boolean
       notice: FarmNotice | null
       isHidden: boolean
-      frame: number
     }
   }
 }

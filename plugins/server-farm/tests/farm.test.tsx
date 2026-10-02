@@ -9,6 +9,7 @@ const START = { cwd: '/tmp/project', surface: 'terminal', isInteractive: true } 
 const engine = (on: On, id = 'me') => {
   const toasts: string[] = []
   const opened: string[] = []
+  const blits: { requestId: string; key: string }[] = []
   on('session.start', (_$, e) => ({ cwd: e.cwd }))
   on('session.id', () => ({ value: id }))
   on('turn.complete', (_$, e) => ({ text: e.answer }))
@@ -23,13 +24,18 @@ const engine = (on: On, id = 'me') => {
 
     return { value: { isPlaced: true } }
   })
+  on('ui.blit', (_$, e) => {
+    blits.push({ requestId: e.requestId, key: e.key })
+
+    return { value: {} }
+  })
   on('ui.render', { component: 'AbovePrompt' }, ($, e) => {
     const { Text } = $.ui.resolve(e)
 
     return <Text>engine band</Text>
   })
 
-  return { toasts, opened }
+  return { toasts, opened, blits }
 }
 
 // An in-memory store the test can read back, standing in for $.store (mock.store keeps its own).
@@ -119,6 +125,19 @@ describe('server-farm', () => {
       expect(await ui.drawn()).toMatchObject({ type: 'Box', props: { marginTop: 1 } })
       await ui.unmount()
     }
+  })
+
+  test('the farm animates by repainting its Raster in place, not by redrawing the band', async ($, on) => {
+    const clock = mock.clock(on)
+    mock.store(on)
+    const { blits } = engine(on)
+    await $.session.start(START)
+
+    const ui = await $.ui.mount({ ...band(), requestId: 'band' })
+    await clock.advance(1_000)
+    expect(blits.length).toBeGreaterThanOrEqual(3)
+    expect(blits.every(blit => blit.requestId === 'band' && blit.key === 'farm')).toBe(true)
+    await ui.unmount()
   })
 
   test('the farm runs on its own and earns data', async ($, on) => {
