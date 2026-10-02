@@ -24,8 +24,8 @@ const COLORS = {
 }
 
 const FRAMES: Record<ServerKind, string> = {
-  pi: '#c51a4a',
-  tower: '#8b949e',
+  pi: '#4b5563',
+  tower: '#9ca3af',
   blade: '#58a6ff',
   gpu: '#3fb950',
 }
