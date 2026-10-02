@@ -59,7 +59,7 @@ Run the checks before committing (CI runs the same script):
 
 It validates the marketplace and each plugin, runs each plugin's tests with `claude plugin test`, and type-checks a plugin once Claude Code has loaded it, which is when its types land in `.claude-plugin/types/` (gitignored).
 
-The function hooks API is early access and can change between Claude Code releases. These mods were built and tested on Claude Code 2.1.287, and CI also runs weekly against the latest release.
+The function hooks API is early access and can change between Claude Code releases. These mods were built and tested on Claude Code 2.1.287, and CI runs against the latest release on every push.
 
 ## Releasing
 

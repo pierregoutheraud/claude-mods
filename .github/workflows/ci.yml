@@ -3,10 +3,6 @@ name: CI
 on:
   push:
   pull_request:
-  # The mod API is early access: a weekly run against the latest Claude Code
-  # shows when a release breaks a mod, before users report it.
-  schedule:
-    - cron: '0 6 * * 1'
 
 jobs:
   check:
