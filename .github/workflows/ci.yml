@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  # The mod API is early access: a weekly run against the latest Claude Code
+  # shows when a release breaks a mod, before users report it.
+  schedule:
+    - cron: '0 6 * * 1'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm install -g @anthropic-ai/claude-code
+      - run: ./scripts/check.sh

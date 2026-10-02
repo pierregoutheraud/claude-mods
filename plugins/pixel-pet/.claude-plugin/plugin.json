@@ -1,0 +1,7 @@
+{
+  "name": "pixel-pet",
+  "version": "0.1.0",
+  "description": "A pixel slime above the prompt that grows as you work with Claude",
+  "author": { "name": "Pierre Goutheraud" },
+  "types": "./types/index.d.ts"
+}

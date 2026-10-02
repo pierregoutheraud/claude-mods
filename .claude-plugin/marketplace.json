@@ -1,0 +1,19 @@
+{
+  "name": "pierre-mods",
+  "owner": { "name": "Pierre Goutheraud" },
+  "metadata": {
+    "description": "Mods for Claude Code: games and toys that live above the prompt"
+  },
+  "plugins": [
+    {
+      "name": "server-farm",
+      "source": "./plugins/server-farm",
+      "description": "An idle server farm above the prompt: daemon bots collect data from your racks, and your Claude work boosts it"
+    },
+    {
+      "name": "pixel-pet",
+      "source": "./plugins/pixel-pet",
+      "description": "A pixel slime above the prompt that grows as you work with Claude"
+    }
+  ]
+}

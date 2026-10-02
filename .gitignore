@@ -1,0 +1,5 @@
+# Written by Claude Code each time it loads a plugin from disk, for this build.
+plugins/*/.claude-plugin/types/
+
+.DS_Store
+node_modules/
